@@ -1,0 +1,1 @@
+# Maj_Core_SmartContractsV1
