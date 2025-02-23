@@ -1,0 +1,27 @@
+{
+  "name": "maj_core_smartcontractsv1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ola-Co/Maj_Core_SmartContractsV1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ola-Co/Maj_Core_SmartContractsV1/issues"
+  },
+  "homepage": "https://github.com/Ola-Co/Maj_Core_SmartContractsV1#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "hardhat": "^2.22.18"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0"
+  }
+}
