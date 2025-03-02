@@ -3,6 +3,7 @@ pragma solidity ^0.8.13;
 
 contract Maj {
 
+    string public majName;
     uint256 public signaturesRequired;
     address[] public admins;
     mapping(address => bool) public isAdmin;
@@ -66,12 +67,13 @@ contract Maj {
         _;
     }
 
-    constructor(address[] memory _admins, uint256 _sigsRequired) {
+    constructor(string memory _majName, address[] memory _admins, uint256 _sigsRequired) {
         for(uint i = 0; i < _admins.length; ++i) {
             _addAdmin(_admins[i]);
         }
         require(_checkNumSigs(_sigsRequired, admins.length));
         signaturesRequired = _sigsRequired;
+        majName = _majName;
     }
 
     fallback() external payable {}
