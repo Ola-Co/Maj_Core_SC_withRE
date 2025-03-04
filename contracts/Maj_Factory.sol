@@ -15,7 +15,7 @@ contract MajFactory {
     mapping(string => bool) public isMajNameAvailable;
 
     function createMajContract(string memory _name, address[] memory _admins, uint256 _sigsRequired) external {
-        if(!isMajNameAvailable[_name]) revert Maj__NameTaken();
+        if(isMajNameAvailable[_name]) revert Maj__NameTaken();
         Maj newContract = new Maj(_name, _admins, _sigsRequired);
         deployedContracts.push(newContract);
         isMajNameAvailable[_name] = true;
@@ -27,7 +27,7 @@ contract MajFactory {
     }
     
     function getDeployedMajNames(string memory _name) external view returns (address majAdderess) {
-        if(isMajNameAvailable[_name]) revert Maj__NameNotFound();
+        if(!isMajNameAvailable[_name]) revert Maj__NameNotFound();
         return majName[_name];
     }
 }
