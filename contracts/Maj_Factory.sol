@@ -30,4 +30,12 @@ contract MajFactory {
         if(!isMajNameAvailable[_name]) revert Maj__NameNotFound();
         return majName[_name];
     }
+
+        // Fallback function to handle unexpected calls
+    fallback() external payable {
+    }
+
+    // Receive function to accept ETH transfers
+    receive() external payable {
+    }
 }
