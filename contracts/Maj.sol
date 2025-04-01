@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import "./MF.sol";
+import "./Maj_Factory.sol";
 
 contract Maj {
 
@@ -70,7 +70,7 @@ contract Maj {
         _;
     }
 
-    constructor(string memory _majName, address[] memory _admins, uint256 _sigsRequired, address _factory) {
+    constructor(string memory _majName, address[] memory _admins, uint256 _sigsRequired, address payable _factory) {
         factory = MajFactory(_factory);
         for (uint i = 0; i < _admins.length; ++i) {
             _addAdmin(_admins[i]);
