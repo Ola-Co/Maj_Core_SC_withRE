@@ -24,6 +24,7 @@ contract MajFactory {
                 for (uint i = 0; i < _admins.length; i++) {
             adminMajContracts[_admins[i]].push(payable(address(newContract)));
         }
+        majName[_name] = address(newContract);
         emit MajDeployed(address(newContract), _admins , _sigsRequired);
     }
     
@@ -56,7 +57,7 @@ contract MajFactory {
         return deployedContracts;
     }
     
-    function getDeployedMajNames(string memory _name) external view returns (address majAdderess) {
+    function getDeployedMajNames(string memory _name) external view returns (address) {
         if(!isMajNameNotAvailable[_name]) revert Maj__NameNotFound();
         return majName[_name];
     }

@@ -105,6 +105,26 @@ contract Maj {
         return txIndex;
     }
 
+    function nonAdminProposeTransaction(
+        address _to, 
+        uint256 _value, 
+        bytes calldata _data
+    ) 
+        external  
+        returns (uint256) 
+    {
+        uint256 txIndex = transactions.length;
+        Transaction memory transaction;
+        transaction.to = _to;
+        transaction.value = _value;
+        transaction.data = _data;
+        transaction.proposedBy = msg.sender;
+        transaction.active = true;
+        transactions.push(transaction);
+        emit TransactionProposed(txIndex, _to, _value, _data, msg.sender);
+        return txIndex;
+    }
+
     function signTransaction(uint256 _txIndex) public onlyAdmin onlyActive(_txIndex) {
         if(hasSigned[_txIndex][msg.sender]) revert Maj__DuplicateSignature();
         Transaction storage transaction = transactions[_txIndex];
