@@ -9,6 +9,7 @@ contract Maj {
     uint256 public signaturesRequired;
     address[] public admins;
     mapping(address => bool) public isAdmin;
+    mapping(address => bool) public isBlacklisted;
     MajFactory private factory;
 
     struct Transaction {
@@ -70,6 +71,11 @@ contract Maj {
         _;
     }
 
+    modifier onlyAllowed(){
+        if(isBlacklisted[msg.sender]) revert Maj__OnlyAdmin();
+        _;
+    }
+
     constructor(string memory _majName, address[] memory _admins, uint256 _sigsRequired, address payable _factory) {
         factory = MajFactory(_factory);
         for (uint i = 0; i < _admins.length; ++i) {
@@ -83,12 +89,33 @@ contract Maj {
     fallback() external payable {}
     receive() external payable {}
 
+    
+    
     function proposeTransaction(
         address _to, 
         uint256 _value, 
         bytes calldata _data
     ) 
         external 
+        onlyAllowed 
+        returns (uint256) 
+    {
+        uint256 internalindex;
+        if (isAdmin[msg.sender]) {
+            internalindex = AdminProposeTransaction(_to, _value, _data);
+    }   else {
+            internalindex = nonAdminProposeTransaction(_to, _value, _data);
+            }
+        return internalindex;
+    }
+    
+    
+    function AdminProposeTransaction(
+        address _to, 
+        uint256 _value, 
+        bytes calldata _data
+    ) 
+        internal 
         onlyAdmin 
         returns (uint256) 
     {
@@ -110,7 +137,7 @@ contract Maj {
         uint256 _value, 
         bytes calldata _data
     ) 
-        external  
+        internal  
         returns (uint256) 
     {
         uint256 txIndex = transactions.length;
@@ -219,6 +246,14 @@ contract Maj {
         require(_admin != address(0), "Maj__ZeroAddress");
         admins.push(_admin);
         isAdmin[_admin] = true;
+    }
+
+    function addBlacklist (address _address) public onlyMaj {
+        isBlacklisted[_address] = true;
+    }
+
+    function removeBlacklist (address _address) public onlyMaj {
+        isBlacklisted[_address] = false;
     }
 
 }
