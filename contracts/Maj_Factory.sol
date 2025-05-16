@@ -15,6 +15,17 @@ contract MajFactory {
     mapping(string => address) private majName;
     mapping(string => bool) public isMajNameNotAvailable;
     mapping(address => address[]) private adminMajContracts;
+    mapping(address => bool) public isBlacklisted;
+    address public owner;
+
+    constructor(){
+        owner = msg.sender;
+    }
+
+    function reassignOwner(address newOwner) external {
+        require(msg.sender=owner,"Addres not owner");
+        owner = newOwner;
+    }
 
     function createMajContract(string memory _name, address[] memory _admins, uint256 _sigsRequired) external {
         if(isMajNameNotAvailable[_name]) revert Maj__NameTaken();
@@ -60,6 +71,14 @@ contract MajFactory {
     function getDeployedMajNames(string memory _name) external view returns (address) {
         if(!isMajNameNotAvailable[_name]) revert Maj__NameNotFound();
         return majName[_name];
+    }
+
+    function addBlacklist (address _address) public {
+        isBlacklisted[_address] = true;
+    }
+
+    function removeBlacklist (address _address) public {
+        isBlacklisted[_address] = false;
     }
 
         // Fallback function to handle unexpected calls

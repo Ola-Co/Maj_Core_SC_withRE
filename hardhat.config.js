@@ -12,5 +12,9 @@ module.exports = {
       url: process.env.rpc, // Base Sepolia RPC URL
       accounts: [process.env.PRIVATE_KEY] 
     }
+    ,westEnd: {
+      url: 'https://westend-asset-hub-rpc.polkadot.io',
+      accounts: [process.env.PRIVATE_KEY]
+    }
     }
 };

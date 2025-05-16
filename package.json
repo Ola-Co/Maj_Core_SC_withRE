@@ -18,10 +18,13 @@
   },
   "homepage": "https://github.com/Ola-Co/Maj_Core_SmartContractsV1#readme",
   "dependencies": {
+    "@thrackle-io/forte-rules-engine": "^0.0.1-rc.0",
+    "@thrackle-io/forte-rules-engine-sdk": "^0.0.3",
     "dotenv": "^16.4.7",
     "hardhat": "^2.22.18"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^5.0.0"
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@parity/hardhat-polkadot": "^0.1.5"
   }
 }

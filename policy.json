@@ -1,0 +1,30 @@
+{
+  "Policy": "Maj Policy",
+  "ForeignCalls": [
+    {
+      "name": "CanProposeTx(x)",
+      "address": "0xAf015D4ECab1883b03c05872C35508Efd2D6b224",
+      "signature": "isBlacklisted(address)",
+      "returnType": "bool",
+      "parameterTypes": "address",
+      "encodedIndices": "0"
+    },
+    {
+      "name": "ProposeTx(x)",
+      "address": "0xAf015D4ECab1883b03c05872C35508Efd2D6b224",
+      "signature": "proposeTransaction(address _to,uint256 _value,bytes calldata _data)",
+      "returnType": "uint256",
+      "parameterTypes": "address,uint256,bytes",
+      "encodedIndices": "0"
+    }
+  ],
+  "RulesJSON": [
+    {
+      "condition": "FC:CanProposeTx(x)",
+      "positiveEffects": ["FC:ProposeTx(x)"],
+      "negativeEffects": ["revert(\"Address not allowed to Propose\")"],
+      "functionSignature": "proposeTransaction(address _to,uint256 _value,bytes calldata _data))",
+      "encodedValues": "address _to,uint256 _value,bytes calldata _data"
+    }
+  ]
+}
